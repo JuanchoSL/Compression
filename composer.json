@@ -1,0 +1,39 @@
+{
+    "name": "juanchosl/library",
+    "description": "{}",
+    "type": "library",
+    "license": "MIT",
+    "homepage": "https://github.com/JuanchoSL/Library",
+    "keywords": [
+        "log",
+        "debug"
+    ],
+    "authors": [
+        {
+            "name": "Juan Sánchez Lecegui",
+            "email": "JuanchoSL@hotmail.com",
+            "homepage": "https://github.com/JuanchoSL/"
+        }
+    ],
+    "require": {
+        "php": "^8.1"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "9.6.*",
+        "phpstan/phpstan": "1.12.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "JuanchoSL\\Library\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "JuanchoSL\\Library\\Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "tests": "vendor/bin/phpunit --configuration phpunit.xml tests",
+        "phpstan": "vendor/bin/phpstan analyse -c phpstan.neon"
+    }
+}
