@@ -1,4 +1,4 @@
-# Change Log {}
+# Change Log - Compression
 
 ## [1.0.0] -
 
