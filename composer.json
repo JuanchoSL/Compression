@@ -21,7 +21,7 @@
         }
     ],
     "require": {
-        "php": "^8.1",
+        "php": "^8.0",
         "juanchosl/exceptions": "1.0.*",
         "juanchosl/validators": "1.0.*"
     },

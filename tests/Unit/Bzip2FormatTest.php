@@ -7,7 +7,7 @@ use PHPUnit\Framework\TestCase;
 
 class Bzip2FormatTest extends TestCase
 {
-    protected function providerEncodingsData(): array
+    public static function providerEncodingsData(): array
     {
         $return = [
             'bzip'=> [new CompressionBzip2()],

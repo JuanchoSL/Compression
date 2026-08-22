@@ -2,15 +2,17 @@
 
 namespace JuanchoSL\Compression\Tests\Unit;
 
-use JuanchoSL\Compression\Formats\Lzf\CompressionLzf;
+use JuanchoSL\Compression\Formats\Gzip\CompressionHttpDeflate;
+use JuanchoSL\Compression\Formats\Gzip\CompressionGzip;
 use PHPUnit\Framework\TestCase;
 
-class LzfFormatTest extends TestCase
+class GzipFormatTest extends TestCase
 {
     public static function providerEncodingsData(): array
     {
         $return = [
-            'lzf'=> [new CompressionLzf()],
+            'deflate' => [new CompressionHttpDeflate()],
+            'gzip' => [new CompressionGzip()],
         ];
         return $return;
     }

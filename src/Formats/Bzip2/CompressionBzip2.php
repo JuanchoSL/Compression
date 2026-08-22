@@ -9,7 +9,7 @@ use JuanchoSL\Exceptions\ExpectationFailedException;
 class CompressionBzip2 implements CompressorInterface
 {
 
-    protected int $level = -1;
+    protected int $level = 4;
 
     public function __construct(?int $level = null)
     {
@@ -17,8 +17,8 @@ class CompressionBzip2 implements CompressorInterface
             throw new ExpectationFailedException("The extension BZIP2 is not loaded");
         }
         if (!is_null($level)) {
-            if ($level < 0 || $level > 9) {
-                throw new Exception("The value only can be between 0 (no compression) an 9 (max compression)");
+            if ($level < 1 || $level > 9) {
+                throw new Exception("The value only can be between 1 (no compression) an 9 (max compression)");
             }
             $this->level = $level;
         }
@@ -26,7 +26,7 @@ class CompressionBzip2 implements CompressorInterface
 
     public function compress(string $text): string
     {
-        return bzcompress($text);
+        return bzcompress($text, $this->level);
     }
     public function decompress(string $text): string
     {

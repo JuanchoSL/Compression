@@ -7,7 +7,7 @@ use PHPUnit\Framework\TestCase;
 
 class BrotliFormatTest extends TestCase
 {
-    protected function providerEncodingsData(): array
+    public static function providerEncodingsData(): array
     {
         $return = [
             'br'=> [new CompressionBrotli()],

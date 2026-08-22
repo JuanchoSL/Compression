@@ -7,7 +7,7 @@ use PHPUnit\Framework\TestCase;
 
 class ZstdFormatTest extends TestCase
 {
-    protected function providerEncodingsData(): array
+    public static function providerEncodingsData(): array
     {
         $return = [
             'zst'=> [new CompressionZstd()],
