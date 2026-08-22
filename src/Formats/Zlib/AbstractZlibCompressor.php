@@ -28,12 +28,12 @@ abstract class AbstractZlibCompressor implements CompressorInterface
         }
     }
 
-    public function compress(string $text): string
+    public function compress(string $text): string|false
     {
         return zlib_encode($text, $this->getEncoding(), $this->level);
     }
 
-    public function decompress(string $text): string
+    public function decompress(string $text): string|false
     {
         return zlib_decode($text);
     }

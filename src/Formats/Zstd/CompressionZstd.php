@@ -4,32 +4,40 @@ namespace JuanchoSL\Compression\Formats\Zstd;
 
 use Exception;
 use JuanchoSL\Compression\Contracts\CompressorInterface;
+use JuanchoSL\Compression\Contracts\DigestableInterface;
+use JuanchoSL\Compression\Formats\Traits\DigestDictionaryTrait;
 use JuanchoSL\Exceptions\ExpectationFailedException;
 
-class CompressionZstd implements CompressorInterface
+class CompressionZstd implements CompressorInterface, DigestableInterface
 {
-    protected int $level = -1;
+
+    use DigestDictionaryTrait;
+
+    protected ?int $level = null;
 
     public function __construct(?int $level = null)
     {
         if (!extension_loaded('zstd')) {
             throw new ExpectationFailedException("The extension ZSTD is not loaded");
         }
-        if (!is_null($level)) {
-            if ($level < 1 || $level > 22) {
-                throw new Exception("The value only can be between 1 (no compression) and 22 (max compression)");
-            }
-            $this->level = $level;
+        defined('ZSTD_COMPRESS_LEVEL_MIN') or define('ZSTD_COMPRESS_LEVEL_MIN', 1);
+        defined('ZSTD_COMPRESS_LEVEL_MAX') or define('ZSTD_COMPRESS_LEVEL_MAX', 22);
+        defined('ZSTD_COMPRESS_LEVEL_DEFAULT') or define('ZSTD_COMPRESS_LEVEL_DEFAULT', 3);
+
+        $level ??= ZSTD_COMPRESS_LEVEL_DEFAULT;
+        if ($level < ZSTD_COMPRESS_LEVEL_MIN || $level > ZSTD_COMPRESS_LEVEL_MAX) {
+            throw new Exception(sprintf("The value only can be between %d (no compression) and %d (max compression)", ZSTD_COMPRESS_LEVEL_MIN, ZSTD_COMPRESS_LEVEL_MAX));
         }
+        $this->level = $level;
     }
 
-    public function compress(string $text): string
+    public function compress(string $text): string|false
     {
-        return zstd_compress($text, $this->level);
+        return zstd_compress($text, $this->level, $this->dictionary);
     }
 
-    public function decompress(string $text): string
+    public function decompress(string $text): string|false
     {
-        return zstd_uncompress($text);
+        return zstd_uncompress($text, $this->dictionary);
     }
 }

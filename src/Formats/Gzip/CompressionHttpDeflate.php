@@ -11,7 +11,7 @@ class CompressionHttpDeflate extends AbstractGzipCompressor implements Compresso
         return FORCE_DEFLATE;
     }
 
-    public function decompress(string $text): string
+    public function decompress(string $text): string|false
     {
         return gzuncompress($text);
     }

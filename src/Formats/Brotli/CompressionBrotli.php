@@ -4,10 +4,14 @@ namespace JuanchoSL\Compression\Formats\Brotli;
 
 use Exception;
 use JuanchoSL\Compression\Contracts\CompressorInterface;
+use JuanchoSL\Compression\Contracts\DigestableInterface;
+use JuanchoSL\Compression\Formats\Traits\DigestDictionaryTrait;
 use JuanchoSL\Exceptions\ExpectationFailedException;
 
-class CompressionBrotli implements CompressorInterface
+class CompressionBrotli implements CompressorInterface, DigestableInterface
 {
+
+    use DigestDictionaryTrait;
 
     protected int $level = 5;
 
@@ -16,21 +20,26 @@ class CompressionBrotli implements CompressorInterface
         if (!extension_loaded('brotli')) {
             throw new ExpectationFailedException("The extension BROTLI is not loaded");
         }
-        if (!is_null($level)) {
-            if ($level < 0 || $level > 11) {
-                throw new Exception("The value only can be between 0 (no compression) an 11 (max compression)");
-            }
-            $this->level = $level;
+        defined('BROTLI_COMPRESS_LEVEL_MIN') or define('BROTLI_COMPRESS_LEVEL_MIN', 0);
+        defined('BROTLI_COMPRESS_LEVEL_MAX') or define('BROTLI_COMPRESS_LEVEL_MAX', 11);
+        defined('BROTLI_COMPRESS_LEVEL_DEFAULT') or define('BROTLI_COMPRESS_LEVEL_DEFAULT', 11);
+        defined('BROTLI_DICTIONARY_SUPPORT') or define('BROTLI_DICTIONARY_SUPPORT', 1);
+        $level ??= BROTLI_COMPRESS_LEVEL_DEFAULT;
+        if ($level < BROTLI_COMPRESS_LEVEL_MIN || $level > BROTLI_COMPRESS_LEVEL_MAX) {
+            throw new Exception(sprintf("The value only can be between %d (no compression) an %d (max compression)", BROTLI_COMPRESS_LEVEL_MIN, BROTLI_COMPRESS_LEVEL_MAX));
         }
+        $this->level = $level;
+
     }
 
-    public function compress(string $text): string
+    public function compress(string $text): string|false
     {
-        return brotli_compress($text);
+        $level = BROTLI_DICTIONARY_SUPPORT ? max($this->level, 5) : $this->level;
+        return brotli_compress($text, $level, \BROTLI_GENERIC, BROTLI_DICTIONARY_SUPPORT ? $this->dictionary : null);
     }
 
-    public function decompress(string $text): string
+    public function decompress(string $text): string|false
     {
-        return brotli_uncompress($text);
+        return brotli_uncompress($text, BROTLI_DICTIONARY_SUPPORT ? $this->dictionary : null);
     }
 }

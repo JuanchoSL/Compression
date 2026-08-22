@@ -11,7 +11,7 @@ class CompressionHttpDeflate extends AbstractDeflateCompressor implements Compre
         return ZLIB_ENCODING_DEFLATE;
     }
 
-    public function decompress(string $text): string
+    public function decompress(string $text): string|false
     {
         return gzuncompress($text);
     }

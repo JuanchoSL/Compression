@@ -7,7 +7,7 @@ interface CompressableInterface
     /**
      * Compress a text using the selected compressor
      * @param string $text Text to compress
-     * @return string the compressed text
+     * @return string|false the compressed text or false if error
      */
-    public function compress(string $text): string;
+    public function compress(string $text): string|false;
 }

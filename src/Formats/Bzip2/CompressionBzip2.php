@@ -24,12 +24,14 @@ class CompressionBzip2 implements CompressorInterface
         }
     }
 
-    public function compress(string $text): string
+    public function compress(string $text): string|false
     {
-        return bzcompress($text, $this->level);
+        $return = bzcompress($text, $this->level);
+        return is_numeric($return) ? false : $return;
     }
-    public function decompress(string $text): string
+    public function decompress(string $text): string|false
     {
-        return bzdecompress($text);
+        $return = bzdecompress($text);
+        return is_numeric($return) ? false : $return;
     }
 }
