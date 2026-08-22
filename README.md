@@ -25,8 +25,15 @@ At first, we can compress/uncompress strings, it is not needed that use a regula
 
 We can select from few extensions, in order to change the format between the available extensions or the specyfic need, with no code changes.
 
-```php
+### Plain text/data
 
+#### Compress
+```php
 $format = new CompressionBrotli($level = 8);
 $compressed_text = $format->compress($uncompressed_text);
 ```
+
+#### Uncompress
+```php
+$format = new CompressionZstd();
+$uncompressed_text = $format->decompress($compressed_text);
