@@ -15,12 +15,12 @@ class CompressionLzf implements CompressorInterface
         }
     }
 
-    public function compress(string $text): string
+    public function compress(string $text): string|false
     {
         return lzf_compress($text);
     }
 
-    public function decompress(string $text): string
+    public function decompress(string $text): string|false
     {
         return lzf_decompress($text);
     }

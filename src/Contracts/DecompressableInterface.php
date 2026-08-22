@@ -8,7 +8,7 @@ interface DecompressableInterface
     /**
      * Decompress a text using the selected compressor
      * @param string $text The compressed text
-     * @return string The decompressed text
+     * @return string|false The decompressed text or false if error
      */
-    public function decompress(string $text): string;
+    public function decompress(string $text): string|false;
 }

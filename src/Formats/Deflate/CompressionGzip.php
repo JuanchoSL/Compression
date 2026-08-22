@@ -11,7 +11,7 @@ class CompressionGzip extends AbstractDeflateCompressor implements CompressorInt
         return ZLIB_ENCODING_GZIP;
     }
     
-    public function decompress(string $text): string
+    public function decompress(string $text): string|false
     {
         return gzdecode($text);
     }
