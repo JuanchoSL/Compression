@@ -10,6 +10,9 @@
         "deflate",
         "gzip",
         "zstd",
+        "br",
+        "brotli",
+        "lzf",
         "raw"
     ],
     "authors": [

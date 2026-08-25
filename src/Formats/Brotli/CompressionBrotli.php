@@ -20,6 +20,9 @@ class CompressionBrotli implements CompressorInterface, DigestableInterface
         if (!extension_loaded('brotli')) {
             throw new ExpectationFailedException("The extension BROTLI is not loaded");
         }
+        defined('BROTLI_GENERIC') or define('BROTLI_GENERIC', 0);
+        defined('BROTLI_TEXT') or define('BROTLI_TEXT', 1);
+        defined('BROTLI_FONT') or define('BROTLI_FONT', 2);
         defined('BROTLI_COMPRESS_LEVEL_MIN') or define('BROTLI_COMPRESS_LEVEL_MIN', 0);
         defined('BROTLI_COMPRESS_LEVEL_MAX') or define('BROTLI_COMPRESS_LEVEL_MAX', 11);
         defined('BROTLI_COMPRESS_LEVEL_DEFAULT') or define('BROTLI_COMPRESS_LEVEL_DEFAULT', 11);
@@ -35,7 +38,7 @@ class CompressionBrotli implements CompressorInterface, DigestableInterface
     public function compress(string $text): string|false
     {
         $level = BROTLI_DICTIONARY_SUPPORT ? max($this->level, 5) : $this->level;
-        return brotli_compress($text, $level, \BROTLI_GENERIC, BROTLI_DICTIONARY_SUPPORT ? $this->dictionary : null);
+        return brotli_compress($text, $level, BROTLI_GENERIC, BROTLI_DICTIONARY_SUPPORT ? $this->dictionary : null);
     }
 
     public function decompress(string $text): string|false

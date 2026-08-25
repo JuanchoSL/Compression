@@ -26,8 +26,6 @@ class HttpDeflateFormatTest extends TestCase
     {
         $text = file_get_contents(dirname(__DIR__, 2) . DIRECTORY_SEPARATOR . 'composer.lock');
         $c = $compressor->compress($text);
-        file_put_contents(dirname(__DIR__, 2) . DIRECTORY_SEPARATOR . 'composer.lock.gz', $c);
-
         $this->assertLessThan(strlen($text), strlen($c));
         $c = $decompressor->decompress($c);
         $this->assertEquals($text, $c);
