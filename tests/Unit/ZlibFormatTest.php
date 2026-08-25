@@ -2,6 +2,7 @@
 
 namespace JuanchoSL\Compression\Tests\Unit;
 
+use Exception;
 use JuanchoSL\Compression\Formats\Zlib\CompressionHttpDeflate;
 use JuanchoSL\Compression\Formats\Zlib\CompressionGzip;
 use JuanchoSL\Compression\Formats\Zlib\CompressionRawDeflate;
@@ -17,6 +18,16 @@ class ZlibFormatTest extends TestCase
             'raw' => [new CompressionRawDeflate()],
         ];
         return $return;
+    }
+
+    /**
+     * @dataProvider providerEncodingsData
+     */
+    public function testLevelInvalid($compressor)
+    {
+        $class = get_class($compressor);
+        $this->expectException(Exception::class);
+        new $class(25);
     }
 
     /**

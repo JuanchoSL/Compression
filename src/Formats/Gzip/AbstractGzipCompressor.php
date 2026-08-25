@@ -4,6 +4,7 @@ namespace JuanchoSL\Compression\Formats\Gzip;
 
 use Exception;
 use JuanchoSL\Compression\Contracts\CompressorInterface;
+use JuanchoSL\Validators\Types\Numbers\NumberValidation;
 
 /**
  * Compression compatible with GZIP output program
@@ -17,7 +18,7 @@ abstract class AbstractGzipCompressor implements CompressorInterface
     public function __construct(?int $level = null)
     {
         if (!is_null($level)) {
-            if ($level < 0 || $level > 9) {
+            if (!NumberValidation::isValueIntoRange($level, 0, 9)) {
                 throw new Exception("The value only can be between 0 (no compression) an 9 (max compression)");
             }
             $this->level = $level;

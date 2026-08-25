@@ -2,6 +2,7 @@
 
 namespace JuanchoSL\Compression\Tests\Unit;
 
+use Exception;
 use JuanchoSL\Compression\Formats\Bzip2\CompressionBzip2;
 use PHPUnit\Framework\TestCase;
 
@@ -10,9 +11,19 @@ class Bzip2FormatTest extends TestCase
     public static function providerEncodingsData(): array
     {
         $return = [
-            'bzip'=> [new CompressionBzip2()],
+            'bzip' => [new CompressionBzip2()],
         ];
         return $return;
+    }
+
+    /**
+     * @dataProvider providerEncodingsData
+     */
+    public function testLevelInvalid($compressor)
+    {
+        $class = get_class($compressor);
+        $this->expectException(Exception::class);
+        new $class(25);
     }
 
     /**

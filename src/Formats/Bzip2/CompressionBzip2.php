@@ -5,6 +5,7 @@ namespace JuanchoSL\Compression\Formats\Bzip2;
 use Exception;
 use JuanchoSL\Compression\Contracts\CompressorInterface;
 use JuanchoSL\Exceptions\ExpectationFailedException;
+use JuanchoSL\Validators\Types\Numbers\NumberValidation;
 
 class CompressionBzip2 implements CompressorInterface
 {
@@ -17,7 +18,7 @@ class CompressionBzip2 implements CompressorInterface
             throw new ExpectationFailedException("The extension BZIP2 is not loaded");
         }
         if (!is_null($level)) {
-            if ($level < 1 || $level > 9) {
+            if (!NumberValidation::isValueIntoRange($level, 1, 9)) {
                 throw new Exception("The value only can be between 1 (no compression) an 9 (max compression)");
             }
             $this->level = $level;
