@@ -7,6 +7,7 @@ use JuanchoSL\Compression\Contracts\CompressorInterface;
 use JuanchoSL\Compression\Contracts\DigestableInterface;
 use JuanchoSL\Compression\Formats\Traits\DigestDictionaryTrait;
 use JuanchoSL\Exceptions\ExpectationFailedException;
+use JuanchoSL\Validators\Types\Numbers\NumberValidation;
 
 class CompressionBrotli implements CompressorInterface, DigestableInterface
 {
@@ -28,7 +29,7 @@ class CompressionBrotli implements CompressorInterface, DigestableInterface
         defined('BROTLI_COMPRESS_LEVEL_DEFAULT') or define('BROTLI_COMPRESS_LEVEL_DEFAULT', 11);
         defined('BROTLI_DICTIONARY_SUPPORT') or define('BROTLI_DICTIONARY_SUPPORT', 1);
         $level ??= BROTLI_COMPRESS_LEVEL_DEFAULT;
-        if ($level < BROTLI_COMPRESS_LEVEL_MIN || $level > BROTLI_COMPRESS_LEVEL_MAX) {
+        if (!NumberValidation::isValueIntoRange($level, BROTLI_COMPRESS_LEVEL_MIN, BROTLI_COMPRESS_LEVEL_MAX)) {
             throw new Exception(sprintf("The value only can be between %d (no compression) an %d (max compression)", BROTLI_COMPRESS_LEVEL_MIN, BROTLI_COMPRESS_LEVEL_MAX));
         }
         $this->level = $level;

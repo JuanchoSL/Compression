@@ -2,6 +2,7 @@
 
 namespace JuanchoSL\Compression\Tests\Unit;
 
+use Exception;
 use JuanchoSL\Compression\Formats\Gzip\CompressionHttpDeflate;
 use JuanchoSL\Compression\Formats\Gzip\CompressionGzip;
 use PHPUnit\Framework\TestCase;
@@ -15,6 +16,16 @@ class GzipFormatTest extends TestCase
             'gzip' => [new CompressionGzip()],
         ];
         return $return;
+    }
+
+    /**
+     * @dataProvider providerEncodingsData
+     */
+    public function testLevelInvalid($compressor)
+    {
+        $class = get_class($compressor);
+        $this->expectException(Exception::class);
+        new $class(25);
     }
 
     /**

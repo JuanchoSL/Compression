@@ -7,6 +7,7 @@ use JuanchoSL\Compression\Contracts\CompressorInterface;
 use JuanchoSL\Compression\Contracts\DigestableInterface;
 use JuanchoSL\Compression\Formats\Traits\DigestDictionaryTrait;
 use JuanchoSL\Exceptions\ExpectationFailedException;
+use JuanchoSL\Validators\Types\Numbers\NumberValidation;
 
 class CompressionZstd implements CompressorInterface, DigestableInterface
 {
@@ -25,7 +26,7 @@ class CompressionZstd implements CompressorInterface, DigestableInterface
         defined('ZSTD_COMPRESS_LEVEL_DEFAULT') or define('ZSTD_COMPRESS_LEVEL_DEFAULT', 3);
 
         $level ??= ZSTD_COMPRESS_LEVEL_DEFAULT;
-        if ($level < ZSTD_COMPRESS_LEVEL_MIN || $level > ZSTD_COMPRESS_LEVEL_MAX) {
+        if (!NumberValidation::isValueIntoRange($level, ZSTD_COMPRESS_LEVEL_MIN, ZSTD_COMPRESS_LEVEL_MAX)) {
             throw new Exception(sprintf("The value only can be between %d (no compression) and %d (max compression)", ZSTD_COMPRESS_LEVEL_MIN, ZSTD_COMPRESS_LEVEL_MAX));
         }
         $this->level = $level;

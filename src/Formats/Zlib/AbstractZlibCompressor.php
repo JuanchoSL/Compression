@@ -5,6 +5,7 @@ namespace JuanchoSL\Compression\Formats\Zlib;
 use Exception;
 use JuanchoSL\Compression\Contracts\CompressorInterface;
 use JuanchoSL\Exceptions\ExpectationFailedException;
+use JuanchoSL\Validators\Types\Numbers\NumberValidation;
 
 /**
  * Compression compatible with ZLIB format data
@@ -21,7 +22,7 @@ abstract class AbstractZlibCompressor implements CompressorInterface
             throw new ExpectationFailedException("The extension ZLIB is not loaded");
         }
         if (!is_null($level)) {
-            if ($level < 0 || $level > 9) {
+            if (!NumberValidation::isValueIntoRange($level, 0, 9)) {
                 throw new Exception("The value only can be between 0 (no compression) and 9 (max compression)");
             }
             $this->level = $level;
