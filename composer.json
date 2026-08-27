@@ -13,6 +13,9 @@
         "br",
         "brotli",
         "lzf",
+        "lz4",
+        "snappy",
+        "xz",
         "raw"
     ],
     "authors": [
@@ -23,6 +26,15 @@
             "role": "Developer"
         }
     ],
+    "suggest": {
+        "kjdev/brotli": "*",
+        "kjdev/bzip3": "*",
+        "kjdev/lz4": "*",
+        "kjdev/zstd": "*",
+        "kjdev/snappy": "*",
+        "pecl/lzf": "*",
+        "mateuszanella/php-ext-xz": "*"
+    },
     "require": {
         "php": "^8.0",
         "juanchosl/exceptions": "1.0.*",

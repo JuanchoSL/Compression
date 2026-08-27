@@ -2,19 +2,18 @@
 
 namespace JuanchoSL\Compression\Tests\Unit;
 
-use Exception;
-use JuanchoSL\Compression\Formats\Zstd\CompressionZstd;
+use JuanchoSL\Compression\Formats\XzLzma\CompressionXzLzma;
 use PHPUnit\Framework\TestCase;
 
-class ZstdFormatTest extends TestCase
+class XzFormatTest extends TestCase
 {
     public static function providerEncodingsData(): array
     {
-        if (version_compare(PHP_VERSION, '8.6', '>=')) {
+        if (version_compare(PHP_VERSION, '8.5', '>=')) {
             return [];
         }
         $return = [
-            'zst' => [new CompressionZstd()],
+            'lzf' => [new CompressionXzLzma()],
         ];
         return $return;
     }
@@ -22,19 +21,9 @@ class ZstdFormatTest extends TestCase
     /**
      * @dataProvider providerEncodingsData
      */
-    public function testLevelInvalid($compressor)
-    {
-        $class = get_class($compressor);
-        $this->expectException(Exception::class);
-        new $class(25);
-    }
-
-    /**
-     * @dataProvider providerEncodingsData
-     */
     public function testSizeAfterCompression($compressor)
     {
-        if (version_compare(PHP_VERSION, '8.6', '>=')) {
+        if (version_compare(PHP_VERSION, '8.5', '>=')) {
             $this->markTestSkipped();
         }
         $text = file_get_contents(dirname(__DIR__, 2) . DIRECTORY_SEPARATOR . 'composer.lock');

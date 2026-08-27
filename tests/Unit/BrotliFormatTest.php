@@ -2,6 +2,7 @@
 
 namespace JuanchoSL\Compression\Tests\Unit;
 
+use Exception;
 use JuanchoSL\Compression\Formats\Brotli\CompressionBrotli;
 use PHPUnit\Framework\TestCase;
 
@@ -9,8 +10,11 @@ class BrotliFormatTest extends TestCase
 {
     public static function providerEncodingsData(): array
     {
+        if (version_compare(PHP_VERSION, '8.6', '>=')) {
+            return [];
+        }
         $return = [
-            'br'=> [new CompressionBrotli()],
+            'br' => [new CompressionBrotli()],
         ];
         return $return;
     }
@@ -18,8 +22,21 @@ class BrotliFormatTest extends TestCase
     /**
      * @dataProvider providerEncodingsData
      */
+    public function testLevelInvalid($compressor)
+    {
+        $class = get_class($compressor);
+        $this->expectException(Exception::class);
+        new $class(25);
+    }
+
+    /**
+     * @dataProvider providerEncodingsData
+     */
     public function testSizeAfterCompression($compressor)
     {
+        if (version_compare(PHP_VERSION, '8.6', '>=')) {
+            $this->markTestSkipped();
+        }
         $text = file_get_contents(dirname(__DIR__, 2) . DIRECTORY_SEPARATOR . 'composer.lock');
         $c = $compressor->compress($text);
         $this->assertLessThan(strlen($text), strlen($c));
