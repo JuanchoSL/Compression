@@ -2,12 +2,10 @@
 
 namespace JuanchoSL\Compression\Tests\Unit;
 
-use Exception;
-use JuanchoSL\Compression\Formats\Brotli\CompressionBrotli;
-use JuanchoSL\Compression\Formats\Zstd\CompressionZstd;
+use JuanchoSL\Compression\Formats\Lz4\CompressionLz4;
 use PHPUnit\Framework\TestCase;
 
-class DigestFormatTest extends TestCase
+class Lz4FormatTest extends TestCase
 {
     public static function providerEncodingsData(): array
     {
@@ -15,20 +13,9 @@ class DigestFormatTest extends TestCase
             return [];
         }
         $return = [
-            'br' => [(new CompressionBrotli())->setDictionary(implode(DIRECTORY_SEPARATOR, [dirname(__FILE__, 2), 'data', 'dictionary-shorted.txt']))],
-            'zstd' => [(new CompressionZstd())->setDictionary(implode(DIRECTORY_SEPARATOR, [dirname(__FILE__, 2), 'data', 'dictionary-shorted.txt']))],
+            'lz4' => [new CompressionLz4()],
         ];
         return $return;
-    }
-
-    /**
-     * @dataProvider providerEncodingsData
-     */
-    public function testLevelInvalid($compressor)
-    {
-        $class = get_class($compressor);
-        $this->expectException(Exception::class);
-        new $class(25);
     }
 
     /**

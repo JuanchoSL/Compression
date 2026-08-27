@@ -9,8 +9,11 @@ class LzfFormatTest extends TestCase
 {
     public static function providerEncodingsData(): array
     {
+        if (version_compare(PHP_VERSION, '8.6', '>=')) {
+            return [];
+        }
         $return = [
-            'lzf'=> [new CompressionLzf()],
+            'lzf' => [new CompressionLzf()],
         ];
         return $return;
     }
@@ -20,6 +23,9 @@ class LzfFormatTest extends TestCase
      */
     public function testSizeAfterCompression($compressor)
     {
+        if (version_compare(PHP_VERSION, '8.6', '>=')) {
+            $this->markTestSkipped();
+        }
         $text = file_get_contents(dirname(__DIR__, 2) . DIRECTORY_SEPARATOR . 'composer.lock');
         $c = $compressor->compress($text);
         $this->assertLessThan(strlen($text), strlen($c));

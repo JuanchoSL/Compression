@@ -18,8 +18,11 @@ At first, we can compress/uncompress strings, it is not needed that use a regula
 - Pure Gzip [RFC 1952](https://www.php.net/manual/en/function.gzencode.php)
 - Lzf (require lzf extension) (https://www.php.net/manual/es/book.lzf.php)
 - Gzip/Deflate (require zlib extension) [RFC 1951](https://www.php.net/manual/es/book.zlib.php)
-- Brotli (require brotli extension)
-- Zstd (require zstd extension)
+- Brotli (require brotli extension) [Brotli](https://packagist.org/packages/kjdev/brotli)
+- Zstd (require zstd extension) [Zstd](https://packagist.org/packages/kjdev/zstd)
+- LZ4 (require lz4 extension) [LZ4](https://packagist.org/packages/kjdev/lz4)
+- SNAPPY (require snappy extension) [Snappy](https://packagist.org/packages/kjdev/snappy)
+- Xz/Lzma (require XZ extension) [XZ](https://github.com/mateuszanella/php-ext-xz)
 
 ## How to use
 
@@ -28,12 +31,15 @@ We can select from few extensions, in order to change the format between the ava
 ### Plain text/data
 
 #### Compress
+
 ```php
 $format = new CompressionBrotli($level = 8);
 $compressed_text = $format->compress($uncompressed_text);
 ```
 
 #### Uncompress
+
 ```php
 $format = new CompressionZstd();
 $uncompressed_text = $format->decompress($compressed_text);
+```
