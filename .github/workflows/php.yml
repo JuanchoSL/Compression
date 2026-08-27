@@ -30,7 +30,7 @@ jobs:
         uses: shivammathur/setup-php@main
         with:
           php-version: ${{ matrix.php-versions }}
-          extensions: bz2, zstd, lzf, brotli
+          extensions: bz2, zstd, lzf, brotli, xz, lz4, snappy
 
       - uses: actions/checkout@main
 
