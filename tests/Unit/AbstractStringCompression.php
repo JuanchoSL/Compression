@@ -16,9 +16,9 @@ abstract class AbstractStringCompression extends TestCase
     public static function providerEncodingsData(): array
     {
         if (
-            version_compare(PHP_VERSION, static::PHP_MIN_VERSION, '<') or
-            version_compare(PHP_VERSION, static::PHP_MAX_VERSION, '>') or
-            (!empty(static::PHP_EXTENSION_REQUIRED) and !extension_loaded(static::PHP_EXTENSION_REQUIRED))
+            version_compare(PHP_VERSION, static::PHP_MIN_VERSION, '<') ||
+            version_compare(PHP_VERSION, static::PHP_MAX_VERSION, '>') ||
+            (!empty(static::PHP_EXTENSION_REQUIRED) && !extension_loaded(static::PHP_EXTENSION_REQUIRED))
         ) {
             return [];
         }
