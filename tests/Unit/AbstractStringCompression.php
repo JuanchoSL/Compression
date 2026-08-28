@@ -2,8 +2,6 @@
 
 namespace JuanchoSL\Compression\Tests\Unit;
 
-use Exception;
-use JuanchoSL\Compression\Formats\Brotli\CompressionBrotli;
 use PHPUnit\Framework\TestCase;
 
 abstract class AbstractStringCompression extends TestCase
