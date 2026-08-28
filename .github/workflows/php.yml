@@ -23,7 +23,7 @@ jobs:
           - "8.4"
           - "8.5"
         os: [ubuntu-latest, windows-latest]
-        dependencies: ["install", "update"]
+        dependencies: ["install"]
     env:
       extensions: bz2, zstd, lzf, brotli, xz, lz4, snappy
       key: extensions-php
