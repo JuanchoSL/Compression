@@ -3,19 +3,17 @@
 namespace JuanchoSL\Compression\Tests\Unit;
 
 use JuanchoSL\Compression\Formats\Lzf\CompressionLzf;
-use PHPUnit\Framework\TestCase;
 
-class LzfFormatTest extends TestCase
+class LzfFormatTest extends AbstractStringCompression
 {
-    public static function providerEncodingsData(): array
+
+    const PHP_MAX_VERSION = '8.5';
+
+    protected static function dataProvider(): array
     {
-        if (version_compare(PHP_VERSION, '8.6', '>=')) {
-            return [];
-        }
-        $return = [
+        return [
             'lzf' => [new CompressionLzf()],
         ];
-        return $return;
     }
 
     /**
@@ -23,9 +21,6 @@ class LzfFormatTest extends TestCase
      */
     public function testSizeAfterCompression($compressor)
     {
-        if (version_compare(PHP_VERSION, '8.6', '>=')) {
-            $this->markTestSkipped();
-        }
         $text = file_get_contents(dirname(__DIR__, 2) . DIRECTORY_SEPARATOR . 'composer.lock');
         $c = $compressor->compress($text);
         $this->assertLessThan(strlen($text), strlen($c));

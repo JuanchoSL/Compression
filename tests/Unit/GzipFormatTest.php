@@ -5,17 +5,15 @@ namespace JuanchoSL\Compression\Tests\Unit;
 use Exception;
 use JuanchoSL\Compression\Formats\Gzip\CompressionHttpDeflate;
 use JuanchoSL\Compression\Formats\Gzip\CompressionGzip;
-use PHPUnit\Framework\TestCase;
 
-class GzipFormatTest extends TestCase
+class GzipFormatTest extends AbstractStringCompression
 {
-    public static function providerEncodingsData(): array
+    protected static function dataProvider(): array
     {
-        $return = [
+        return [
             'deflate' => [new CompressionHttpDeflate()],
             'gzip' => [new CompressionGzip()],
         ];
-        return $return;
     }
 
     /**

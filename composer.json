@@ -6,6 +6,7 @@
     "homepage": "https://github.com/JuanchoSL/Compression",
     "keywords": [
         "compression",
+        "bz2",
         "zlib",
         "deflate",
         "gzip",
@@ -28,7 +29,6 @@
     ],
     "suggest": {
         "kjdev/brotli": "*",
-        "kjdev/bzip3": "*",
         "kjdev/lz4": "*",
         "kjdev/zstd": "*",
         "kjdev/snappy": "*",

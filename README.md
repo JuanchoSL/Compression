@@ -28,6 +28,20 @@ At first, we can compress/uncompress strings, it is not needed that use a regula
 
 We can select from few extensions, in order to change the format between the available extensions or the specyfic need, with no code changes.
 
+### Compatibility
+
+Actually, the distincts modules have diferent compatibilities with some php versions. Actually we are test with the next available versions:
+
+- Bzip2: From php v8.0 to php v8.6 (This is a native module included with all php versions)
+- Gzip: From php v8.0 to php v8.6 (This is a native module included with all php versions)
+- Lzf: From php v8.0 to php v8.5
+- Zlib: From php v8.0 to php v8.6 (This is a native module included with all php versions)
+- Brotli: From php v8.0 to php v8.5
+- Zstd: From php v8.0 to php v8.5
+- Lz4: From php v8.1 to php v8.5
+- Snappy: From php v8.1 to php v8.4
+- XZ: From php v8.0 to php v8.4
+
 ### Plain text/data
 
 #### Compress

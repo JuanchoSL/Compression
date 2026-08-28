@@ -4,16 +4,15 @@ namespace JuanchoSL\Compression\Tests\Unit;
 
 use Exception;
 use JuanchoSL\Compression\Formats\Bzip2\CompressionBzip2;
-use PHPUnit\Framework\TestCase;
 
-class Bzip2FormatTest extends TestCase
+class Bzip2FormatTest extends AbstractStringCompression
 {
-    public static function providerEncodingsData(): array
+
+    protected static function dataProvider(): array
     {
-        $return = [
+        return [
             'bzip' => [new CompressionBzip2()],
         ];
-        return $return;
     }
 
     /**

@@ -6,18 +6,16 @@ use Exception;
 use JuanchoSL\Compression\Formats\Deflate\CompressionHttpDeflate;
 use JuanchoSL\Compression\Formats\Deflate\CompressionGzip;
 use JuanchoSL\Compression\Formats\Deflate\CompressionRawDeflate;
-use PHPUnit\Framework\TestCase;
 
-class DeflateFormatTest extends TestCase
+class DeflateFormatTest extends AbstractStringCompression
 {
-    public static function providerEncodingsData(): array
+    protected static function dataProvider(): array
     {
-        $return = [
+        return [
             'deflate' => [new CompressionHttpDeflate()],
             'gzip' => [new CompressionGzip()],
             'raw' => [new CompressionRawDeflate()],
         ];
-        return $return;
     }
 
     /**
