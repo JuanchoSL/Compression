@@ -24,7 +24,6 @@ class CompressionZstd implements CompressorInterface, DigestableInterface
         defined('ZSTD_COMPRESS_LEVEL_MIN') or define('ZSTD_COMPRESS_LEVEL_MIN', 1);
         defined('ZSTD_COMPRESS_LEVEL_MAX') or define('ZSTD_COMPRESS_LEVEL_MAX', 22);
         defined('ZSTD_COMPRESS_LEVEL_DEFAULT') or define('ZSTD_COMPRESS_LEVEL_DEFAULT', 3);
-
         $level ??= ZSTD_COMPRESS_LEVEL_DEFAULT;
         if (!NumberValidation::isValueIntoRange($level, ZSTD_COMPRESS_LEVEL_MIN, ZSTD_COMPRESS_LEVEL_MAX)) {
             throw new Exception(sprintf("The value only can be between %d (no compression) and %d (max compression)", ZSTD_COMPRESS_LEVEL_MIN, ZSTD_COMPRESS_LEVEL_MAX));

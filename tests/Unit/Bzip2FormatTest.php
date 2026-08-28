@@ -4,16 +4,17 @@ namespace JuanchoSL\Compression\Tests\Unit;
 
 use Exception;
 use JuanchoSL\Compression\Formats\Bzip2\CompressionBzip2;
-use PHPUnit\Framework\TestCase;
 
-class Bzip2FormatTest extends TestCase
+class Bzip2FormatTest extends AbstractStringCompression
 {
-    public static function providerEncodingsData(): array
+
+    const PHP_EXTENSION_REQUIRED = 'bz2';
+
+    protected static function dataProvider(): array
     {
-        $return = [
+        return [
             'bzip' => [new CompressionBzip2()],
         ];
-        return $return;
     }
 
     /**
@@ -26,15 +27,4 @@ class Bzip2FormatTest extends TestCase
         new $class(25);
     }
 
-    /**
-     * @dataProvider providerEncodingsData
-     */
-    public function testSizeAfterCompression($compressor)
-    {
-        $text = file_get_contents(dirname(__DIR__, 2) . DIRECTORY_SEPARATOR . 'composer.lock');
-        $c = $compressor->compress($text);
-        $this->assertLessThan(strlen($text), strlen($c));
-        $c = $compressor->decompress($c);
-        $this->assertEquals($text, $c);
-    }
 }

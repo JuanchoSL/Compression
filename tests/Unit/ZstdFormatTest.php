@@ -4,19 +4,19 @@ namespace JuanchoSL\Compression\Tests\Unit;
 
 use Exception;
 use JuanchoSL\Compression\Formats\Zstd\CompressionZstd;
-use PHPUnit\Framework\TestCase;
 
-class ZstdFormatTest extends TestCase
+class ZstdFormatTest extends AbstractStringCompression
 {
-    public static function providerEncodingsData(): array
+
+    const PHP_MAX_VERSION = '8.5';
+
+    const PHP_EXTENSION_REQUIRED = 'zstd';
+
+    protected static function dataProvider(): array
     {
-        if (version_compare(PHP_VERSION, '8.6', '>=')) {
-            return [];
-        }
-        $return = [
-            'zst' => [new CompressionZstd()],
+        return [
+            'zstd' => [new CompressionZstd()],
         ];
-        return $return;
     }
 
     /**
@@ -29,18 +29,4 @@ class ZstdFormatTest extends TestCase
         new $class(25);
     }
 
-    /**
-     * @dataProvider providerEncodingsData
-     */
-    public function testSizeAfterCompression($compressor)
-    {
-        if (version_compare(PHP_VERSION, '8.6', '>=')) {
-            $this->markTestSkipped();
-        }
-        $text = file_get_contents(dirname(__DIR__, 2) . DIRECTORY_SEPARATOR . 'composer.lock');
-        $c = $compressor->compress($text);
-        $this->assertLessThan(strlen($text), strlen($c));
-        $c = $compressor->decompress($c);
-        $this->assertEquals($text, $c);
-    }
 }
