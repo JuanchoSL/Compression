@@ -10,10 +10,12 @@ class ZstdFormatTest extends AbstractStringCompression
 
     const PHP_MAX_VERSION = '8.5';
 
+    const PHP_EXTENSION_REQUIRED = 'zstd';
+
     protected static function dataProvider(): array
     {
         return [
-            'zst' => [new CompressionZstd()],
+            'zstd' => [new CompressionZstd()],
         ];
     }
 
@@ -27,18 +29,4 @@ class ZstdFormatTest extends AbstractStringCompression
         new $class(25);
     }
 
-    /**
-     * @dataProvider providerEncodingsData
-     */
-    public function testSizeAfterCompression($compressor)
-    {
-        if (version_compare(PHP_VERSION, '8.5', '>')) {
-            $this->markTestSkipped();
-        }
-        $text = file_get_contents(dirname(__DIR__, 2) . DIRECTORY_SEPARATOR . 'composer.lock');
-        $c = $compressor->compress($text);
-        $this->assertLessThan(strlen($text), strlen($c));
-        $c = $compressor->decompress($c);
-        $this->assertEquals($text, $c);
-    }
 }

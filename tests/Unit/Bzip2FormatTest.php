@@ -8,6 +8,8 @@ use JuanchoSL\Compression\Formats\Bzip2\CompressionBzip2;
 class Bzip2FormatTest extends AbstractStringCompression
 {
 
+    const PHP_EXTENSION_REQUIRED = 'bz2';
+
     protected static function dataProvider(): array
     {
         return [
@@ -25,15 +27,4 @@ class Bzip2FormatTest extends AbstractStringCompression
         new $class(25);
     }
 
-    /**
-     * @dataProvider providerEncodingsData
-     */
-    public function testSizeAfterCompression($compressor)
-    {
-        $text = file_get_contents(dirname(__DIR__, 2) . DIRECTORY_SEPARATOR . 'composer.lock');
-        $c = $compressor->compress($text);
-        $this->assertLessThan(strlen($text), strlen($c));
-        $c = $compressor->decompress($c);
-        $this->assertEquals($text, $c);
-    }
 }

@@ -9,6 +9,7 @@ class BrotliFormatTest extends AbstractStringCompression
 {
 
     const PHP_MAX_VERSION = '8.5';
+    const PHP_EXTENSION_REQUIRED = 'br';
 
     protected static function dataProvider(): array
     {
@@ -27,15 +28,4 @@ class BrotliFormatTest extends AbstractStringCompression
         new $class(25);
     }
 
-    /**
-     * @dataProvider providerEncodingsData
-     */
-    public function testSizeAfterCompression($compressor)
-    {
-        $text = file_get_contents(dirname(__DIR__, 2) . DIRECTORY_SEPARATOR . 'composer.lock');
-        $c = $compressor->compress($text);
-        $this->assertLessThan(strlen($text), strlen($c));
-        $c = $compressor->decompress($c);
-        $this->assertEquals($text, $c);
-    }
 }
