@@ -48,3 +48,6 @@ jobs:
 
       - name: Install dependencies
         run: composer ${{ matrix.dependencies }} --prefer-dist --no-progress --ignore-platform-reqs
+
+      - name: Run test suite
+        run: composer tests
