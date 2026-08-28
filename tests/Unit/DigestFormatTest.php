@@ -11,7 +11,7 @@ class DigestFormatTest extends AbstractStringCompression
 
     const PHP_MAX_VERSION = '8.5';
 
-    const PHP_EXTENSION_REQUIRED = 'br';
+    const PHP_EXTENSION_REQUIRED = 'brotli';
 
     protected static function dataProvider(): array
     {
