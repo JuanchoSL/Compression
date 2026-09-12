@@ -6,8 +6,12 @@ use JuanchoSL\Compression\FileHandlers\Brotli\BrotliFileReader;
 use JuanchoSL\Compression\FileHandlers\Brotli\BrotliFileWriter;
 use JuanchoSL\Compression\FileHandlers\Bzip2\Bzip2FileReader;
 use JuanchoSL\Compression\FileHandlers\Bzip2\Bzip2FileWriter;
+use JuanchoSL\Compression\FileHandlers\Lz4\Lz4FileReader;
+use JuanchoSL\Compression\FileHandlers\Lz4\Lz4FileWriter;
 use JuanchoSL\Compression\FileHandlers\Lzf\LzfFileReader;
 use JuanchoSL\Compression\FileHandlers\Lzf\LzfFileWriter;
+use JuanchoSL\Compression\FileHandlers\XzLzma\XzLzmaFileReader;
+use JuanchoSL\Compression\FileHandlers\XzLzma\XzLzmaFileWriter;
 use JuanchoSL\Compression\FileHandlers\Zlib\ZlibFileReader;
 use JuanchoSL\Compression\FileHandlers\Zlib\ZlibFileWriter;
 use JuanchoSL\Compression\FileHandlers\Zstd\ZstdFileReader;
@@ -27,7 +31,13 @@ class FileReaderTest extends TestCase
                 'lzf' => [LzfFileWriter::class, LzfFileReader::class],
                 'br' => [BrotliFileWriter::class, BrotliFileReader::class],
                 'zstd' => [ZstdFileWriter::class, ZstdFileReader::class],
+                'lz4' => [Lz4FileWriter::class, Lz4FileReader::class],
+                'xz' => [XzLzmaFileWriter::class, XzLzmaFileReader::class],
             ];
+            if (version_compare(PHP_VERSION, '8.5', '<')) {
+                $return += [
+                ];
+            }
         }
         return $return;
     }

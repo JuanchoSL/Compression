@@ -62,4 +62,4 @@ jobs:
       - name: Run test suite
         env:
           TMPDIR: ${{ runner.temp }}
-        run: composer tests
+        run: composer pie && composer tests
