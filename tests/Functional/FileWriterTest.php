@@ -18,10 +18,11 @@ use JuanchoSL\Compression\FileHandlers\Zstd\ZstdFileReader;
 use JuanchoSL\Compression\FileHandlers\Zstd\ZstdFileWriter;
 use PHPUnit\Framework\TestCase;
 
-class FileReaderTest extends TestCase
+class FileWriterTest extends TestCase
 {
     public static function providerHandlers(): array
     {
+        defined("TMPDIR") or define("TMPDIR", sys_get_temp_dir());
         $return = [
             'bzip' => [Bzip2FileWriter::class, Bzip2FileReader::class],
             'zlib' => [ZlibFileWriter::class, ZlibFileReader::class],
@@ -46,10 +47,18 @@ class FileReaderTest extends TestCase
     /**
      * @dataProvider providerHandlers
      */
-    public function testSizeAfterCompression($handler, $reader)
+    public function testSizeAfterIncrementalCompression($handler, $reader)
     {
-        $file = dirname(__DIR__, 2) . DIRECTORY_SEPARATOR . 'composer.lock';
-        $compressed = $handler::compress($file);
+        $compressed = TMPDIR . DIRECTORY_SEPARATOR . sprintf('file-%s.%s', date("Ymd"), $handler::getExtension());
+        $writer = new $handler($compressed);
+        $file = dirname(__DIR__, 2) . DIRECTORY_SEPARATOR . 'composer.json';
+        $pointer = fopen($file, 'r');
+        while (!feof($pointer)) {
+            $data = fread($pointer, 256);
+            $writer->write($data);
+        }
+        fclose($pointer);
+        $writer->close();
         $this->assertLessThan(filesize($file), filesize($compressed));
         $reader = new $reader($compressed);
         $this->assertEquals(file_get_contents($file), (string) $reader);
