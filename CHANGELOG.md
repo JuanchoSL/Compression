@@ -1,5 +1,15 @@
 # Change Log - Compression
 
+## [1.0.2] - 2026-09-15
+
+### Added
+
+- Support filehandlers for all available extensions
+
+### Changed
+
+### Fixed
+
 ## [1.0.1] - 2026-08-29
 
 ### Added

@@ -34,13 +34,13 @@ Actually, the distincts modules have diferent compatibilities with some php vers
 
 - Bzip2: From php v8.0 to php v8.6 (This is a native module included with all php versions)
 - Gzip: From php v8.0 to php v8.6 (This is a native module included with all php versions)
-- Lzf: From php v8.0 to php v8.5
+- Lzf: From php v8.0 to php v8.5 [Pecl](https://packagist.org/packages/pecl/lzf)
 - Zlib: From php v8.0 to php v8.6 (This is a native module included with all php versions)
-- Brotli: From php v8.0 to php v8.5
-- Zstd: From php v8.0 to php v8.5
-- Lz4: From php v8.1 to php v8.5
-- Snappy: From php v8.1 to php v8.4
-- XZ: From php v8.0 to php v8.4 (with mateuszanella/php-ext-xz) and php v8.5 (with codemasher/php-ext-xz)
+- Brotli: From php v8.0 to php v8.5 [Kjdev](https://github.com/kjdev/php-ext-brotli)
+- Zstd: From php v8.0 to php v8.5 [Kjdev](https://packagist.org/packages/kjdev/zstd)
+- Lz4: From php v8.1 to php v8.5 [Kjdev](https://github.com/kjdev/php-ext-lz4)
+- Snappy: From php v8.1 to php v8.4 [Kjdev](https://github.com/kjdev/php-ext-snappy)
+- XZ: From php v8.0 to php v8.4 [with mateuszanella/php-ext-xz](https://github.com/mateuszanella/php-ext-xz) and php v8.5 [with codemasher/php-ext-xz](https://github.com/codemasher/php-ext-xz)
 
 ### Plain text/data
 
